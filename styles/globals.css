@@ -33,3 +33,32 @@ input, textarea{
 .button{
   @apply bg-blue-500 rounded-lg px-5 py-2 text-white shadow-md
 }
+
+.skeleton {
+  animation: skeleton-loading 1s linear infinite alternate;
+}
+
+
+
+.skeleton-img{
+  animation: skeleton-img-loading 1s linear infinite alternate;
+}
+
+
+@keyframes skeleton-img-loading {
+  0% {
+    background-color: #A9A9A9;
+  }
+  100% {
+    background-color: #808080;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: #C0C0C0;
+  }
+  100% {
+    background-color: #E5E4E2;
+  }
+}

@@ -7,13 +7,20 @@ export default function DeleteProduct(){
     const router = useRouter()
     const id = router.query.id
     const [productInfo, setProductInfo] = useState([])
+    const [imgName, setImgName] = useState("")
 
     useEffect(() => {
         if(!id) return
 
         axios.get('/api/products?id=' + id).then(res => {
             setProductInfo(res.data)
+            const imgsrctemp = res.data.imgSrc
+            const myArray = imgsrctemp.split("/").pop()
+            const final = myArray.split(".")[0]
+            console.log(final)
         })
+
+        
         
     }, [id])
     
@@ -24,6 +31,8 @@ export default function DeleteProduct(){
     async function deleteProduct(){
         goBack()
         await axios.delete('/api/products?id=' + id)
+
+        cloudinary.uploader.destroy()
         
     } 
 

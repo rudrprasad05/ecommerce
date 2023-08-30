@@ -4,6 +4,7 @@ import { HiBuildingStorefront,
     HiOutlineIdentification, 
     HiOutlineCurrencyDollar,
     HiOutlineCircleStack,
+    HiListBullet,
     HiOutlineCog8Tooth } from 'react-icons/hi2'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -15,7 +16,7 @@ const Nav = () => {
     const pathname = router.pathname
 
     return (
-        <nav className='px-8 py-5 grid gap-5 h-min'>
+        <nav className='px-8 py-5 grid gap-5 h-min capitalize'>
             <Link href={"/"}>
                 <div className={inactiveLink}>
                     <HiBuildingStorefront size={30}/>
@@ -41,6 +42,13 @@ const Nav = () => {
                 <div className={pathname.includes('/products') ? activeLink : inactiveLink }>
                     <HiOutlineCircleStack size={30}/>
                     <span>Products</span>
+                </div>
+            </Link>
+
+            <Link href={"/categories"}>
+                <div className={pathname.includes('/categories') ? activeLink : inactiveLink }>
+                    <HiListBullet size={30}/>
+                    <span>categories</span>
                 </div>
             </Link>
 
