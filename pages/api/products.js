@@ -3,10 +3,15 @@ import mongoose from 'mongoose'
 import React from 'react'
 import {Product} from '@/models/Product'
 import { mongooseConnect } from '@/lib/mongoose'
+import { getServerSession } from 'next-auth'
+import { authOptions, isAdminRequest } from './auth/[...nextauth]'
 
 const handle = async(req, res) => {
 
     await mongooseConnect()
+    await isAdminRequest(req, res)
+
+
     if(req.method === 'GET'){
         if(req.query?.id){
             res.json(await Product.findOne({_id: req.query.id}))
@@ -19,17 +24,20 @@ const handle = async(req, res) => {
     }
 
     if(req.method === 'POST'){
-        const {title, description, price, imgSrc, category} = req.body
+        const {title, description, price, imgSrc, category, properties} = req.body
         const productDoc = await Product.create({
-            title, description, price, imgSrc, category
+            title, description, price, imgSrc, category, properties
         })
         res.json(productDoc)
     }
 
     if(req.method === 'PUT'){
-        const {title, description, price, _id, category} = req.body
+        const {title, description, price, _id, category, properties} = req.body
         
-        const doc = await Product.updateOne({_id}, {title, description, price, category})
+        const doc = await Product.updateOne(
+            {_id}, 
+            {title, description, price, category, properties}
+        )
         res.json(doc)
     }
 

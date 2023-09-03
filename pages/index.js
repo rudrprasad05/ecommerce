@@ -28,12 +28,6 @@ export default function Home() {
 
         <div className="ml-auto flex items-center gap-3 justify-center">
 
-          <button onClick={() => signOut("google")} className="bg-red-500 text-white rounded-lg shadow-md px-3 py-1">
-              SignOut
-          </button>
-
-          <UserButton/>
-
           
 
         </div>

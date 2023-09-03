@@ -8,15 +8,15 @@ import {HiWifi} from 'react-icons/hi2'
 export default function Layout({children, title}) {
   const { data: session } = useSession()
 
-  // if(!session) {
-  //   return (
-  //     <>
-  //       <div className="w-screen h-screen grid items-center">
-  //         <button onClick={() => signIn("google")} className="bg-blue-500 rounded-lg text-white mx-auto px-5 py-2">Login with google</button>
-  //       </div>
-  //     </>
-  //   )
-  // }
+  if(!session) {
+    return (
+      <>
+        <div className="w-screen h-screen grid items-center">
+          <button onClick={() => signIn("google")} className="bg-blue-500 rounded-lg text-white mx-auto px-5 py-2">Login with google</button>
+        </div>
+      </>
+    )
+  }
 
   return (
     <>
@@ -24,16 +24,16 @@ export default function Layout({children, title}) {
       <Head>
         <title>{title}</title>
       </Head>
-      <div className="flex h-screen w-screen">
+      <div className="flex min-h-screen w-screen">
         <Nav/>
 
-        <Online>
-          <div className="grow bg-white text-black px-8 py-5">
-            {children}
-          </div>
-        </Online>
+        
+        <div className="grow bg-white text-black px-8 py-5">
+          {children}
+        </div>
+        
 
-        <Offline>
+        {/* <Offline>
           <div className="grow bg-white text-black px-8 py-5 grid items-center">
             <div className="text-center">
               <div>
@@ -44,7 +44,7 @@ export default function Layout({children, title}) {
               </div>
             </div>
           </div>
-        </Offline>
+        </Offline> */}
         
       </div>
     </>

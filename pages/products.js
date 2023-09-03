@@ -10,16 +10,29 @@ const products = () => {
   const [loading, setLoading] = useState(true)
   const [products, setProducts] = useState([])
 
-  const loadingTemplate = [1, 2, 3, 4, 5];
+  const loadingTemplate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
   useEffect(() => {
-    
+ 
+    if(localStorage.getItem('products')){
+      const temp = localStorage.getItem('products')
+      setProducts(JSON.parse(temp))
+      setLoading(false)
+    }
+    else{
     axios.get('/api/products').then(response => {
       setProducts(response.data)
       setLoading(false)
+      save(response.data)
     })
+
+  }
     
 
   }, [])
+
+  const save = (res) => {
+    localStorage.setItem('products', JSON.stringify(res))
+  }
 
   
   return (

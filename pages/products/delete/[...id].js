@@ -29,10 +29,11 @@ export default function DeleteProduct(){
     }
 
     async function deleteProduct(){
+        localStorage.removeItem('products')
         goBack()
         await axios.delete('/api/products?id=' + id)
-
-        cloudinary.uploader.destroy()
+        
+        // cloudinary.uploader.destroy()
         
     } 
 
