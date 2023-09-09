@@ -2,8 +2,12 @@ import axios from "axios"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Layout from "./layout"
-import {HiOutlineCloudUpload} from 'react-icons/hi'
+import {
+    HiOutlineCloudUpload, 
+    HiOutlineX
+} from 'react-icons/hi'
 import { useParams } from 'next/navigation'
+import Skeleton from "./Skeleton"
 
 export default function ProductForm({
     _id,
@@ -25,15 +29,22 @@ export default function ProductForm({
     const [category, setCategory] = useState(existingCategory || "")
     const [error, setError] = useState("")
     const router = useRouter()
+    const [loading, setLoading] = useState(true)
     // const {id} = useParams()
 
+
+    const loadingTemplate = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
     useEffect(() => {
+        
         axios.get('/api/categories').then(result => {
             setCategories(result.data)
-            
+            setLoading(false)
         })
+
        
     }, [])
+
 
     const uploadImage = async (e) => {
         
@@ -83,6 +94,7 @@ export default function ProductForm({
         localStorage.removeItem('products')
         await router.push('/products')
         setGoToProducts(true)
+        console.log(data)
     }
 
     const disabledButton = () => {
@@ -118,7 +130,7 @@ export default function ProductForm({
     }
     return (  
         <>
-           
+           {!loading &&
             <form className='grid gap-5' onSubmit={handleSubmit}>
                 <label htmlFor="">Name</label>
                 <input 
@@ -128,14 +140,21 @@ export default function ProductForm({
                 onChange={e => setTitle(e.target.value)}
                 />
                 <label htmlFor="">Images</label>
+            
                 <input 
                     type="file" 
                     className=""
                     onChange={uploadImage}
                 />
-             
-                {imgSrc ? 
-                    <img src={imgSrc}></img> : 
+
+                {imgSrc ?
+                    <div className="relative w-1/2">
+                        <img src={imgSrc}></img>
+                        <div className="rounded-full h-12 w-12 absolute top-0 right-0">
+                            <button onClick={() => setImgSrc("")}><HiOutlineX/></button>
+                        </div>
+                    </div> 
+                     : 
                     <div>No img</div>
                 }
                 <label htmlFor="">Category</label>
@@ -183,6 +202,27 @@ export default function ProductForm({
                 {error && <div>{error}</div>}
                 <button className='button mr-auto'>Save</button>
             </form>
+            }
+            {loading && loadingTemplate.map((i) => (
+                <>
+                <Skeleton
+                    key={i}
+                    textOnly={true}
+                    additionalClasses={'gap-5 pr-5 h-32 w-full rounded-lg flex items-center bg-transparent'}
+                    text={true}
+                    textClasses={"h-4"}
+                />
+                <Skeleton
+                    key={i}
+                    input={true}
+                    additionalClasses={'gap-5 pr-5 h-32 w-full rounded-lg flex items-center bg-transparent'}
+                    text={true}
+                    textClasses={"h-4"}
+                />
+                </>
+            ))
+                
+            }
         </>
     )
 }

@@ -9,11 +9,11 @@ import { authOptions, isAdminRequest } from './auth/[...nextauth]'
 const handle = async(req, res) => {
 
     await mongooseConnect()
-    await isAdminRequest(req, res)
+    // await isAdminRequest(req, res)
 
 
     if(req.method === 'GET'){
-        if(req.query?.id){
+        if(req?.query?.id){
             res.json(await Product.findOne({_id: req.query.id}))
             
         }
@@ -32,11 +32,11 @@ const handle = async(req, res) => {
     }
 
     if(req.method === 'PUT'){
-        const {title, description, price, _id, category, properties} = req.body
+        const {title, description, price, imgSrc, _id, category, properties} = req.body
         
         const doc = await Product.updateOne(
             {_id}, 
-            {title, description, price, category, properties}
+            {title, description, price, imgSrc, category, properties}
         )
         res.json(doc)
     }

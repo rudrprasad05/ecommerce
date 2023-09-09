@@ -65,6 +65,7 @@ const products = () => {
 
           {loading && (loadingTemplate.map((e, i) => (
               <Skeleton 
+              product={true}
               key={i}
               additionalClasses={'gap-5 pr-5 h-32 w-full rounded-lg flex items-center'}
               img={true}

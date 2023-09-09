@@ -1,22 +1,31 @@
 import Nav from "@/components/Nav"
+import { Alert, AlertTitle } from "@mui/material";
 import { useSession, signIn, signOut } from "next-auth/react"
 import Head from 'next/head'
-import { Offline, Online } from "react-detect-offline";
-import {HiWifi} from 'react-icons/hi2'
+import { useState } from "react";
 
 
 export default function Layout({children, title}) {
   const { data: session } = useSession()
 
-  if(!session) {
-    return (
-      <>
-        <div className="w-screen h-screen grid items-center">
-          <button onClick={() => signIn("google")} className="bg-blue-500 rounded-lg text-white mx-auto px-5 py-2">Login with google</button>
-        </div>
-      </>
-    )
+
+  const login = async () => {
+    signIn("google").then(() => {
+
+
+    })
+     
   }
+
+  // if(!session) {
+  //   return (
+  //     <>
+  //       <div className="w-screen h-screen grid items-center">
+  //         <button onClick={() => login()} className="bg-blue-500 rounded-lg text-white mx-auto px-5 py-2">Login with google</button>
+  //       </div>
+  //     </>
+  //   )
+  // }
 
   return (
     <>
@@ -31,6 +40,8 @@ export default function Layout({children, title}) {
         <div className="grow bg-white text-black px-8 py-5">
           {children}
         </div>
+
+      
         
 
         {/* <Offline>

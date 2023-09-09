@@ -8,17 +8,28 @@ const editProductPage = () => {
   const [productInfo, setProductInfo] = useState(null)
   
   const router = useRouter()
-  const id = router.query.id
+  let tempId;
+  let id;
+
+  
   
   
   useEffect(() => {
+    tempId = localStorage.getItem('edit')
+    id = router.query.id || tempId
+
+    if(!tempId){
+      localStorage.setItem("edit", id)
+    }
+
+    console.log(id)
     if(!id) return
 
     axios.get('/api/products?id='+id).then(response => {
       setProductInfo(response.data)
       
     })
-  }, [])
+    }, [])
 
   return (
     <Layout title={"Product"}>

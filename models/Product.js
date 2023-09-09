@@ -19,6 +19,8 @@ const ProductSchema = new Schema({
         type: Object
     }
 
+}, {
+    timestamps: true,
 })
 
 export const Product = models.Product || model('Product', ProductSchema)
