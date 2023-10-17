@@ -9,6 +9,7 @@ const OrderSchema = new Schema({
     address: String,
     contact: String,
     paid: Boolean,
+    total: String
 })
 
 export const Order = models?.Order ||  model('Order', OrderSchema)

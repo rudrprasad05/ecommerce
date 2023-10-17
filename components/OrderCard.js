@@ -16,20 +16,18 @@ const OrderCard = ({props}) => {
     }, [])
 
   return (
-    <div className={'mb-5'}>
-        <div className=''>
-            <div>
-                Order ID: {props._id}
-            </div>
-            <div>
-                Name: {props.name}
-            </div>
-            <div>
-                Delivery Address: {props.address}
-            </div>
-        </div>
+    <div className={'shadow-sm grid grid-cols-10 py-2 text-center px-5'}>
+       
+        <div className='col-span-1 text-ellipsis overflow-clip'>{props._id}</div>
+        <div className='col-span-2'>{props.name}</div>
+        <div className='col-span-2'>{props.address}</div>
+        <div className='col-span-2'>{moment(props.createdAt).format("Do MMM YY")}</div>
+        <div className='col-span-1'>FJD {props.total}</div>
+        <div className='col-span-1'>{props.paid ? <span className='text-green-500'>PAID</span> : <span className='text-red-500'>PENDING</span>}</div>
+        <div className='col-span-1'>Status</div>
+ 
 
-        <div>
+        {/* <div>
             {props.line_items.map(e => (
                 productsLS.map(f => {
                    if (e == f._id){
@@ -43,7 +41,7 @@ const OrderCard = ({props}) => {
                    }
                 })
             ))}
-        </div>
+        </div> */}
 
        
     </div>

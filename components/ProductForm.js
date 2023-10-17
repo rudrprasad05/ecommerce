@@ -37,10 +37,13 @@ export default function ProductForm({
 
     useEffect(() => {
         
-        axios.get('/api/categories').then(result => {
-            setCategories(result.data)
-            setLoading(false)
-        })
+        // axios.get('/api/categories')
+        // .then(result => {
+        //     setCategories(result.data)
+        //     setLoading(false)
+        // })
+        // .catch((error) => console.log(error))
+        setLoading(false)
 
        
     }, [])
@@ -176,8 +179,8 @@ export default function ProductForm({
                             <select
                              onChange = {(e) => setProductProp(p.name, e.target.value)}
                              value={propertyValues[p.name]}>
-                                {p.value.split(',').map((v, i) => (
-                                    <option key={i} value={v}>{v}</option>
+                                {p.value.split(',').map((v, index) => (
+                                    <option key={index} value={v}>{v}</option>
                                 ))}
                             </select>
                         </div>                 
@@ -204,22 +207,22 @@ export default function ProductForm({
             </form>
             }
             {loading && loadingTemplate.map((i) => (
-                <>
+                <div key={i}>
                 <Skeleton
-                    key={i}
+
                     textOnly={true}
                     additionalClasses={'gap-5 pr-5 h-32 w-full rounded-lg flex items-center bg-transparent'}
                     text={true}
                     textClasses={"h-4"}
                 />
                 <Skeleton
-                    key={i}
+
                     input={true}
                     additionalClasses={'gap-5 pr-5 h-32 w-full rounded-lg flex items-center bg-transparent'}
                     text={true}
                     textClasses={"h-4"}
                 />
-                </>
+                </div>
             ))
                 
             }
